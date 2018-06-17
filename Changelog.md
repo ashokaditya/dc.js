@@ -1,6 +1,115 @@
+## 3.0.5
+* Use Chrome and Firefox headless at Travis CI, by Deepak Kumar. See ([#1452](https://github.com/dc-js/dc.js/pull/1452)), an attempt to resolve ([#1451](https://github.com/dc-js/dc.js/pull/1451))
+
+## 3.0.4
+* Box plot enhancements: jittered data points, data point tooltips, bold outliers, by Chris Wolcott. Also implements `yRangePadding` to fix problems with not enough/too much space for labels in box plots. ([#1439](https://github.com/dc-js/dc.js/pull/1439) / [#1370](https://github.com/dc-js/dc.js/issues/1370) / [#1120](https://github.com/dc-js/dc.js/issues/1120))
+* Code cleanup - replaced `.rangesEqual` with `dc.utils.arraysEqual`, by Deepak Kumar ([#1436](https://github.com/dc-js/dc.js/pull/1436) / [#1405](https://github.com/dc-js/dc.js/issues/1405))
+* New tests for range filters with dates, by Deepak Kumar. ([#1437](https://github.com/dc-js/dc.js/pull/1437) / [#1432](https://github.com/dc-js/dc.js/issues/1432))
+* Fix readme references to 3.0, by Deepak Kumar. ([#1441](https://github.com/dc-js/dc.js/pull/1441))
+* Propagate filters on composite chart to children, by Deepak Kumar ([#1435](https://github.com/dc-js/dc.js/pull/1435)). Fixes remaining parts of ([#390](https://github.com/dc-js/dc.js/issues/390) / [#706](https://github.com/dc-js/dc.js/issues/706)).
+* Listen to rangeChart's filtered event with a namespace, by Keith Dahlby ([#1366](https://github.com/dc-js/dc.js/pull/1366))
+
+## 3.0.3
+* Update versions and release new fiddles and blocks pegged to dc@3 and d3@5
+
+## 3.0.2
+* Allow row chart `.xAxis` to be settable. Since the type of axis can't be detected by the chart, provide [example](https://dc-js.github.io/dc.js/examples/row-top-axis.html) of setting the position of axis and grid lines manually.
+* In a composite chart, the brush is only applied on the parent, by Deepak Kumar. This fixes many composite chart brushing issues, but let us know if it broke any of your use cases! ([#1408](https://github.com/dc-js/dc.js/pull/1408) / [#1424](https://github.com/dc-js/dc.js/issues/1424) / [#479](https://github.com/dc-js/dc.js/issues/479) / [#390](https://github.com/dc-js/dc.js/issues/390) / [#706](https://github.com/dc-js/dc.js/issues/706) / [#878](https://github.com/dc-js/dc.js/issues/878))
+
+## 3.0.1
+* Test compatibility with D3v4 as well as D3v5, by Deepak Kumar ([#1430](https://github.com/dc-js/dc.js/pull/1430))
+* Add new charts/widgets to class hierarchy in documentation
+
+## 3.0.0
+* Sunburst chart, by Blair Nilsson, with contributions by Sean Micklethwaite and Deepak Kumar ([#781](https://github.com/dc-js/dc.js/issues/781) / [#907](https://github.com/dc-js/dc.js/pull/907) / [#1337](https://github.com/dc-js/dc.js/pull/1337) /[#1388](https://github.com/dc-js/dc.js/pull/1388))
+* Text filter widget, by Xavier Dutoit ([#383](https://github.com/dc-js/dc.js/issues/383) / [#936](https://github.com/dc-js/dc.js/pull/936) / [#1387](https://github.com/dc-js/dc.js/pull/1387))
+* Checkbox/radio button filtering, by Amelia Ireland, with contributions by Deepak Kumar ([#1348](https://github.com/dc-js/dc.js/pull/1348) / [#1389](https://github.com/dc-js/dc.js/pull/1389))
+* HTML Legend, by David Long and Ramesh Rajagopalon, with contributions by Deepak Kumar ([#1325](https://github.com/dc-js/dc.js/issues/1325) / [#577](https://github.com/dc-js/dc.js/pull/577) / [#1329](https://github.com/dc-js/dc.js/pull/1329) / [#1392](https://github.com/dc-js/dc.js/pull/1392))
+
+## 3.0.0 beta 2
+* declare `pkg.main` for compatibility with some bundlers (and hopefully Observable)
+
+## 3.0.0 beta 1
+* First NPM release of dc.js, compatible with D3 versions 4 and 5. Thanks to Deepak Kumar for all his effort on the port! We've made every effort to keep the library backward-compatible, but see [the 3.0 changes in the wiki](https://github.com/dc-js/dc.js/wiki/Changes-in-dc.js-version-3.0).
+* `fadeDeselectedArea` checks if brushing is enabled for the chart. Restores backward compatibility. By Deepak Kumar. ([#1422](https://github.com/dc-js/dc.js/pull/1422) / [#1401](https://github.com/dc-js/dc.js/issues/1401))
+* Rename `selection` --> `brushSelection`. By Deepak Kumar.([#1423](https://github.com/dc-js/dc.js/issues/1423) / [#1398](https://github.com/dc-js/dc.js/issues/1398))
+
+## 3.0.0 alpha 12
+* Use `d3.stack` from d3v4+, transforming the data from/to the old layer/stack objects. Remove `d3v3-compat.js` ([#1375](https://github.com/dc-js/dc.js/issues/1375)
+
+## 3.0.0 alpha 11
+* xAxisPaddingUnit should be the d3 interval not the name of it ([#1320](https://github.com/dc-js/dc.js/issues/1320), [#1326](https://github.com/dc-js/dc.js/issues/1326), [#1420](https://github.com/dc-js/dc.js/issues/1420))
+
+## 3.0.0 alpha 10
+* Streamlined creation of YAxis in coordinate grid charts, by Deepak Kumar ([#1416](https://github.com/dc-js/dc.js/pull/1416))
+* Updated XAxis and YAxis documentation, by Deepak Kumar ([#1416](https://github.com/dc-js/dc.js/pull/1416))
+* `dc.config.defaultColors` is a mechanism to change default color scheme for all ordinal charts, by Deepak Kumar ([#1409](https://github.com/dc-js/dc.js/pull/1409)).
+* deprecate use of default color scheme `d3.schemeCategory20c`, which has been [removed in D3v5](https://github.com/d3/d3/blob/master/CHANGES.md#changes-in-d3-50). Provide a temporary copy of the old colors for backward compatibility, but the defaults will change in DCv3.1. By Deepak Kumar ([#1409](https://github.com/dc-js/dc.js/pull/1409)).
+* more cleanup from d3v4 refactor, by Deepak Kumar. Warn before converting from `d3.scaleOrdinal` to `d3.scaleBands` ([#1414](https://github.com/dc-js/dc.js/pull/1414), [#1417](https://github.com/dc-js/dc.js/pull/1417), [#1418](https://github.com/dc-js/dc.js/pull/1418))
+
+## 3.0.0 alpha 9
+* `numberDisplay` uses [d3.easeQuad](https://github.com/d3/d3-ease/blob/master/README.md#easeQuad) instead of [quad-out-in](https://github.com/d3/d3-3.x-api-reference/blob/master/Transitions.md#d3_ease), which didn't make sense. ([#1413](https://github.com/dc-js/dc.js/pull/1413))
+* `dc.units.ordinal` is now purely a placeholder or magic value, and not called as a function. Previously dc.js would call the `xUnits` function with three arguments: the start, end, and domain array, but this was not compliant with d3 range functions. Now these functions are called with only the start and end, and `dc.units.ordinal` is detected with `===`. ([#1410](https://github.com/dc-js/dc.js/pull/1410))
+* cleanup from d3v4 refactor, by Deepak Kumar ([#1412](https://github.com/dc-js/dc.js/pull/1412))
+
+## 3.0.0 alpha 8
+* don't show brush handles on scatter plot, by Deepak Kumar ([#1407](https://github.com/dc-js/dc.js/pull/1407) / [#1406](https://github.com/dc-js/dc.js/issues/1406))
+* remove `d3.functor`. [`d3.functor` was removed in d3 version 4]( https://github.com/d3/d3/blob/master/CHANGES.md#internals); to replace it, use  `typeof x === "function" ? x : dc.utils.constant(x)` ([#1374](https://github.com/dc-js/dc.js/issues/1374))
+
+## 3.0.0 alpha 7
+* `elasticY` should look only at points within the X domain, even with `evadeDomainFilter` enabled, by Keith Dahlby ([#1367](https://github.com/dc-js/dc.js/pull/1367))
+* fixes to animated resizing of brush when chart resizes, by Deepak Kumar ([#1402](https://github.com/dc-js/dc.js/pull/1402) / [#1376](https://github.com/dc-js/dc.js/issues/1399)
+
+## 3.0.0 alpha 6
+* initialize all positions for entering objects, since d3.transition will now start them at zero if you don't ([#1400](https://github.com/dc-js/dc.js/issues/1400))
+
+## 3.0.0 alpha 5
+* d3v5 support: all examples upgraded to d3-fetch. `schemeCategory20c` is patched into `d3` temporarily, by Deepak Kumar, but see [#1403](https://github.com/dc-js/dc.js/issues/1403)
+
+## 3.0.0 alpha 4
+* switch to Karma for testing across browsers, by Deepak Kumar ([#1393](https://github.com/dc-js/dc.js/pull/1393))
+
+## 3.0.0 alpha 3
+* improved integration with `d3.zoom`, by Deepak Kumar. Since the d3v4 implementation is a lot more powerful, this eliminates a lot of custom zoom code. ([#1385](https://github.com/dc-js/dc.js/pull/1385))
+
+## 3.0.0 alpha 2
+* backward compatibility for `dc.lineChart.interpolate` and `dc.geoChoroplethChart.projection`, by Deepak Kumar ([#1381](https://github.com/dc-js/dc.js/pull/1381) / [#1376](https://github.com/dc-js/dc.js/issues/1376), [#1382](https://github.com/dc-js/dc.js/pull/1382) / [#1379](https://github.com/dc-js/dc.js/issues/1379))
+* Fixed test cases for Edge/IE, by Deepak Kumar ([#1378](https://github.com/dc-js/dc.js/pull/1378) / [#1373](https://github.com/dc-js/dc.js/issues/1373)
+* lint ([#1372](https://github.com/dc-js/dc.js/pull/1372))
+
+## 3.0.0 alpha 1
+* first pass of d3v4 support, by Deepak Kumar ([#1363](https://github.com/dc-js/dc.js/pull/1363))
+* until more stable, releases will be github-only (no npm/cdnjs)
+* all [axis.tickArguments()](https://github.com/d3/d3-axis/blob/master/README.md#axis_tickArguments) are applied to `scale.ticks()` to produce horizontal & vertical gridlines, not just the first argument.
+
+## 3.0
+dc.js 3.0 is compatible with d3 versions 4 and 5! Thanks to Deepak Kumar for his tireless effort on making this finally happen.
+
+New features will only be added to 3.0; however, 2.1 will be maintained for a limited time for those who still need compatibility with d3 version 3.
+
+
+## 2.1.10
+* Update dependencies, including crossfilter2 v1.4
+* Example of adding a vertical line to a row chart
+
+## 2.1.9
+* Fix selectMenu crashing IE11 on Windows 8 and below, by Victor Parpoil ([#1338](https://github.com/dc-js/dc.js/pull/1338) / [#1334](https://github.com/dc-js/dc.js/issues/1334))
+
+## 2.1.8
+(see 2.0.5)
+
+## 2.1.7
+* viewBox-based resizing of charts, by James Tindall ([#1312](https://github.com/dc-js/dc.js/pull/1312))
+* workaround for [issue #949](https://github.com/dc-js/dc.js/issues/949) merged from 2.0.4
+* remove pointless and confusing optimization from number display - it now uses `computeOrderedGroups` like everything else.
+
+## 2.1.6
+* fix test syntax for Microsoft browsers
+
 ## 2.1.5
+* crossfilter is loaded by its module name (crossfilter2), not its filename (crossfilter). This is intended to help webpack and other automatic module loaders. This is likely to break requireJS configurations; see [#1304](https://github.com/dc-js/dc.js/issues/1304) for details. ([#1213](https://github.com/dc-js/dc.js/issues/1213), [#1214](https://github.com/dc-js/dc.js/issues/1214), [#1261](https://github.com/dc-js/dc.js/issues/1261), [#1293](https://github.com/dc-js/dc.js/issues/1293), [#1302](https://github.com/dc-js/dc.js/issues/1302))
  * Default capMixin.ordering to sort decreasing by value, to emulate old group.top(N)
- * `numberDisplay` was picking lowest instead of highest value in the case where it was given a regular group
+ * `numberDisplay` should pick the highest value in the case where it is given a regular group
 
 ## 2.1.4
  * Simplified `capMixin.othersGrouper` default implementation by passing the rest of the items as well as those before the cap. This is possible because of [#934](https://github.com/dc-js/dc.js/issues/934) relying on sorting of `group.all()` instead of `group.top()`. The default implementation is now easy to understand and it should be easier to customize (if anyone should want to).
@@ -28,6 +137,19 @@ Stop using `group.top()` in favor of `group.all()` sorting and slicing. ([#934](
  * Functional-style filter handlers: instead of modifying the array of filters in-place, filter handlers must return the new filter array. This is consistent with the old documention, but a different implementation: any changes to the `filters` argument will be ignored unless they are returned. This should make filter handlers easier to reason about.
 
 # 2.0 Series
+## 2.0.5
+* legend highlighting functions of scatter plots would select symbols in sibling charts, causing the symbols and sizes to change ([#874](https://github.com/dc-js/dc.js/issues/874))
+
+## 2.0.4
+* Temporary flag [`stackMixin.evadeDomainFilter`](http://dc-js.github.io/dc.js/docs/html/dc.stackMixin.html#evadeDomainFilter__anchor) to work around [issue #949](https://github.com/dc-js/dc.js/issues/949) until it's fixed. The flag completely disables filtering of points by the stack mixin, because the current filtering is wrong. (The correct fix will be included in dc.js 2.1.x when it's ready.)
+
+## 2.0.3
+* crossfilter is loaded by its module name (crossfilter2), not its filename (crossfilter). This is intended to help webpack and other automatic module loaders. This is likely to break requireJS configurations; see [#1304](https://github.com/dc-js/dc.js/issues/1304) for details. ([#1213](https://github.com/dc-js/dc.js/issues/1213), [#1214](https://github.com/dc-js/dc.js/issues/1214), [#1261](https://github.com/dc-js/dc.js/issues/1261), [#1293](https://github.com/dc-js/dc.js/issues/1293), [#1302](https://github.com/dc-js/dc.js/issues/1302))
+* Do not make the pie chart radius bigger than the chart size, by Sandeep Fatangare ([#1279](https://github.com/dc-js/dc.js/pull/1279))
+* Allow custom scatter plot symbols ([#1274](https://github.com/dc-js/dc.js/issues/1274))
+* Download example sorts the table data in the same order as it's shown ([#1232](https://github.com/dc-js/dc.js/issues/1232))
+* `baseChart.replaceFilter` should return the chart ([#1227](https://github.com/dc-js/dc.js/issues/1227))
+
 ## 2.0.2
 * Allow bracketed selectors for charts to work with numeric/quoted values, by Marcel Pfeiffer ([#1282](https://github.com/dc-js/dc.js/pull/1282))
 * Fix images in [European Parliament example](http://dc-js.github.io/dc.js/ep/), by Xavier Dutoit ([#1284](https://github.com/dc-js/dc.js/pull/1284) / [#1256](https://github.com/dc-js/dc.js/issues/1256))

@@ -9,7 +9,7 @@
  * // create a number display under #chart-container1 element using the default global chart group
  * var display1 = dc.numberDisplay('#chart-container1');
  * @param {String|node|d3.selection} parent - Any valid
- * {@link https://github.com/d3/d3-3.x-api-reference/blob/master/Selections.md#selecting-elements d3 single selector} specifying
+ * {@link https://github.com/d3/d3-selection/blob/master/README.md#select d3 single selector} specifying
  * a dom block element such as a div; or a dom element or d3 selection.
  * @param {String} [chartGroup] - The name of the chart group this chart instance should be placed in.
  * Interaction with a chart will only trigger events and redraws within the chart's group.
@@ -26,7 +26,7 @@ dc.numberDisplay = function (parent, chartGroup) {
     _chart._mandatoryAttributes(['group']);
 
     // default to ordering by value, to emulate old group.top(1) behavior when multiple groups
-    _chart.ordering(function (kv) { return -kv.value; });
+    _chart.ordering(function (kv) { return kv.value; });
 
     /**
      * Gets or sets an optional object specifying HTML templates to use depending on the number
@@ -80,20 +80,12 @@ dc.numberDisplay = function (parent, chartGroup) {
         return _chart.data();
     };
 
-    // probably unnecessary efficiency over computeOrderedGroups sort
     function maxBin (all) {
-        if (all.length < 1) {
+        if (!all.length) {
             return null;
         }
-        var maxi = 0, max = _chart.ordering()(all[0]);
-        for (var i = 1; i < all.length; ++i) {
-            var v = _chart.ordering()(all[i]);
-            if (v > max) {
-                max = v;
-                maxi = i;
-            }
-        }
-        return all[maxi];
+        var sorted = _chart._computeOrderedGroups(all);
+        return sorted[sorted.length - 1];
     }
     _chart.data(function (group) {
         var valObj = group.value ? group.value() : maxBin(group.all());
@@ -110,19 +102,23 @@ dc.numberDisplay = function (parent, chartGroup) {
         if (span.empty()) {
             span = span.data([0])
                 .enter()
-                .append('span')
-                .attr('class', SPAN_CLASS);
+                    .append('span')
+                    .attr('class', SPAN_CLASS)
+                .merge(span);
         }
 
         span.transition()
             .duration(_chart.transitionDuration())
             .delay(_chart.transitionDelay())
-            .ease('quad-out-in')
+            .ease(d3.easeQuad)
             .tween('text', function () {
                 // [XA] don't try and interpolate from Infinity, else this breaks.
                 var interpStart = isFinite(_lastValue) ? _lastValue : 0;
                 var interp = d3.interpolateNumber(interpStart || 0, newValue);
                 _lastValue = newValue;
+
+                // need to save it in D3v4
+                var node = this;
                 return function (t) {
                     var html = null, num = _chart.formatNumber()(interp(t));
                     if (newValue === 0 && (_html.none !== '')) {
@@ -132,7 +128,7 @@ dc.numberDisplay = function (parent, chartGroup) {
                     } else if (_html.some !== '') {
                         html = _html.some;
                     }
-                    this.innerHTML = html ? html.replace('%number', num) : num;
+                    node.innerHTML = html ? html.replace('%number', num) : num;
                 };
             });
     };
@@ -146,7 +142,7 @@ dc.numberDisplay = function (parent, chartGroup) {
      * @method formatNumber
      * @memberof dc.numberDisplay
      * @instance
-     * @see {@link https://github.com/d3/d3-3.x-api-reference/blob/master/Formatting.md d3.format}
+     * @see {@link https://github.com/d3/d3-format/blob/master/README.md#format d3.format}
      * @param {Function} [formatter=d3.format('.2s')]
      * @returns {Function|dc.numberDisplay}
      */

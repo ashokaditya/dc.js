@@ -3,7 +3,8 @@
 <head>
     <title>dc.js - Bar Chart Example</title>
     <meta charset="UTF-8">
-    <link rel="stylesheet" type="text/css" href="../css/dc.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/dc.css" />
+    <link rel="stylesheet" type="text/css" href="dc-resizing.css" />
 </head>
 <body>
 
@@ -12,10 +13,11 @@
 <script type="text/javascript" src="../js/d3.js"></script>
 <script type="text/javascript" src="../js/crossfilter.js"></script>
 <script type="text/javascript" src="../js/dc.js"></script>
+<script type="text/javascript" src="dc-resizing.js"></script>
 <script type="text/javascript">
 
 var chart = dc.barChart("#test");
-d3.csv("../examples/morley.csv", function(error, experiments) {
+d3.csv("../examples/morley.csv").then(function(experiments) {
 
   experiments.forEach(function(x) {
     x.Speed = +x.Speed;
@@ -26,9 +28,7 @@ d3.csv("../examples/morley.csv", function(error, experiments) {
       speedSumGroup       = runDimension.group().reduceSum(function(d) {return d.Speed * d.Run / 1000;});
 
   chart
-    .width(window.innerWidth-20)
-    .height(window.innerHeight-20)
-    .x(d3.scale.linear().domain([6,20]))
+    .x(d3.scaleLinear().domain([6,20]))
     .brushOn(true)
     .xAxisLabel("This is the X Axis!!")
     .yAxisLabel("This is the Y Axis!")
@@ -39,15 +39,9 @@ d3.csv("../examples/morley.csv", function(error, experiments) {
             console.log("click!", d);
         });
     });
-    chart.render();
 
-    window.onresize = function() {
-        chart
-            .width(window.innerWidth-20)
-            .height(window.innerHeight-20)
-            .rescale()
-            .redraw();
-      };
+    apply_resizing(chart, 20);
+    chart.render();
 });
 
 </script>
